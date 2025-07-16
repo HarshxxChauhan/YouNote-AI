@@ -1,7 +1,11 @@
 GenAI Research Assistant 🧑‍💻📚
+
+
+
 GenAI Research Assistant is an AI-powered web application designed to assist users in summarizing, extracting, and understanding YouTube video content using Large Language Models (LLMs). Built with Python, Streamlit, and Google Gemini API (or OpenAI/Cohere API, as needed), this tool automates the process of generating structured research notes from lengthy YouTube videos. It is ideal for students, researchers, content creators, and professionals looking to speed up content consumption and note-taking tasks.
 
 ✨ Key Features
+
 ✅ YouTube Transcript Extraction:
 Automatically fetches transcript data from public YouTube videos using youtube-transcript-api.
 
