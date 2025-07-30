@@ -1,8 +1,8 @@
-GenAI Research Assistant 🧑‍💻📚
+YouNote-AI 🧑‍💻📚
 
 
 
-GenAI Research Assistant is an AI-powered web application designed to assist users in summarizing, extracting, and understanding YouTube video content using Large Language Models (LLMs). Built with Python, Streamlit, and Google Gemini API (or OpenAI/Cohere API, as needed), this tool automates the process of generating structured research notes from lengthy YouTube videos. It is ideal for students, researchers, content creators, and professionals looking to speed up content consumption and note-taking tasks.
+YouNote-AI is an AI-powered web application designed to assist users in summarizing, extracting, and understanding YouTube video content using Large Language Models (LLMs). Built with Python, Streamlit, and Google Gemini API (or OpenAI/Cohere API, as needed), this tool automates the process of generating structured research notes from lengthy YouTube videos. It is ideal for students, researchers, content creators, and professionals looking to speed up content consumption and note-taking tasks.
 
 ✨ Key Features
 
@@ -91,10 +91,7 @@ Large transcripts could take longer to process due to chunking.
 📁 Project Structure
 
 
-bash
-Copy
-Edit
-GenAI-Research-Assistant/
+YouNote-AI/
 ├── app.py                # Main Streamlit application file
 ├── .env.example          # Template file for environment variables
 ├── requirements.txt      # Python dependencies
