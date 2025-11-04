@@ -5,7 +5,7 @@ import PyPDF2
 import re
 import cohere
 
-co = cohere.Client("8TF84n4VRjxYkV3oTBZ1bTy1x2qtgcR924RjMkp6")
+co = cohere.Client("d3cNfKXM9EbiHe6Y15D2Se7TDAf6edgPD4bjjePp")
 
 def extract_text_with_page_numbers(file_path):
     text_pages = []
