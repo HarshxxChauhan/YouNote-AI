@@ -5,6 +5,7 @@ import PyPDF2
 import re
 import cohere
 
+# ✅ Hard-coded API Key (replace with your key)
 co = cohere.Client("d3cNfKXM9EbiHe6Y15D2Se7TDAf6edgPD4bjjePp")
 
 def extract_text_with_page_numbers(file_path):
@@ -19,36 +20,37 @@ def extract_text_with_page_numbers(file_path):
 def clean_text(text):
     return re.sub(r'\s+', ' ', text).strip()
 
+# ✅ Summarization using Cohere Chat API
 def cohere_summarize(text):
     if not text.strip():
         return "Document is empty."
-    response = co.summarize(text=text[:4000])
-    return response.summary if hasattr(response, 'summary') else "No summary generated."
 
+    response = co.chat(
+        model="command",
+        message=f"Summarize the following document clearly:\n\n{text[:4000]}"
+    )
+    return response.text.strip()
+
+# ✅ Answer Generation using Cohere Chat API
 def cohere_generate_answer(document_text, question):
     if not document_text.strip() or not question.strip():
         return "Empty input."
-    prompt = f"""Based strictly on the document below, answer the question clearly using only the document content. Mention the page number if relevant.
 
-Document:
-{document_text}
+    response = co.chat(
+        model="command",
+        message=f"Answer the question strictly based on the given document.\n\nDocument:\n{document_text[:4000]}\n\nQuestion: {question}\nAnswer:"
+    )
+    return response.text.strip()
 
-Question: {question}
-
-Answer:"""
-    response = co.generate(prompt=prompt, max_tokens=300)
-    return response.generations[0].text.strip()
-
+# ✅ Challenge Question Generator
 def generate_dynamic_logic_questions(document_text):
-    prompt = f"""Based on the document below, generate exactly 3 unique logic-based or comprehension-focused questions.
+    response = co.chat(
+        model="command",
+        message=f"Generate exactly 3 logical comprehension questions based on this document:\n\n{document_text[:4000]}\n\nProvide each question on a new line."
+    )
 
-Document:
-{document_text}
-
-Questions:"""
-    response = co.generate(prompt=prompt, max_tokens=300)
-    questions = response.generations[0].text.strip().splitlines()[:3]
-    return [q.strip("- ").strip() for q in questions if q.strip()]
+    questions = response.text.strip().splitlines()
+    return [q.strip("-• ").strip() for q in questions if q.strip()][:3]
 
 def search_best_paragraph_with_reference(text_pages, query):
     best_match = ""
@@ -92,27 +94,25 @@ if doc_file:
     question = st.text_input("Enter your question:")
     if st.button("Ask"):
         if question:
-            answer = cohere_generate_answer(full_text[:4000], question)
+            answer = cohere_generate_answer(full_text, question)
             paragraph, page = search_best_paragraph_with_reference(pages_content, question)
             st.success("Answer:")
             st.write(answer)
-            st.caption(f"📄 Reference: Page {page}")
+            st.caption(f"📄 Reference: Page {page if page else 'Unknown'}")
             st.code(paragraph, language="markdown")
         else:
             st.warning("Please enter a question.")
 
     st.header("3. Challenge Me!")
-
     if 'challenge_questions' not in st.session_state:
         st.session_state['challenge_questions'] = []
         st.session_state['challenge_started'] = False
 
     if st.button("🎯 Generate Challenge"):
-        if not st.session_state['challenge_started']:
-            st.session_state['challenge_questions'] = generate_dynamic_logic_questions(full_text[:4000])
-            st.session_state['challenge_started'] = True
+        st.session_state['challenge_questions'] = generate_dynamic_logic_questions(full_text)
+        st.session_state['challenge_started'] = True
 
-    if st.session_state.get("challenge_started", False) and st.session_state['challenge_questions']:
+    if st.session_state.get("challenge_started") and st.session_state['challenge_questions']:
         st.subheader("Answer These 3 Questions:")
         for i, q in enumerate(st.session_state['challenge_questions'][:3], 1):
             st.markdown(f"**Q{i}:** {q}")
@@ -126,12 +126,12 @@ if doc_file:
             else:
                 st.subheader("✅ Feedback:")
                 for i, (q, ans) in enumerate(zip(st.session_state['challenge_questions'][:3], answers), 1):
-                    correct = cohere_generate_answer(full_text[:4000], q)
+                    correct = cohere_generate_answer(full_text, q)
                     para, page = search_best_paragraph_with_reference(pages_content, q)
                     st.markdown(f"**Q{i}:** {q}")
                     st.markdown(f"**Your Answer:** {ans}")
                     st.markdown(f"**Correct Answer:** {correct}")
-                    st.caption(f"📄 Referenced from page {page}")
+                    st.caption(f"📄 Page {page if page else 'Unknown'}")
                     st.code(para, language="markdown")
                     st.write("---")
 
