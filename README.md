@@ -1,99 +1,90 @@
-YouNote-AI 🧑‍💻📚
+# 📚 GenAI Research Assistant
 
+A **Streamlit-based Generative AI application** that helps users analyze research documents efficiently by providing **AI-powered summaries and question-answering** capabilities.
 
+---
 
-YouNote-AI is an AI-powered web application designed to assist users in summarizing, extracting, and understanding YouTube video content using Large Language Models (LLMs). Built with Python, Streamlit, and Google Gemini API (or OpenAI/Cohere API, as needed), this tool automates the process of generating structured research notes from lengthy YouTube videos. It is ideal for students, researchers, content creators, and professionals looking to speed up content consumption and note-taking tasks.
+## 🚀 Project Overview
 
-✨ Key Features
+The **GenAI Research Assistant** is designed to simplify the process of reading and understanding research papers. Instead of manually going through long documents, users can upload files and interact with them using **natural language queries** powered by **Generative AI**.
 
-✅ YouTube Transcript Extraction:
+This tool is especially useful for **students, researchers, and professionals** who want quick insights from academic papers.
 
-Automatically fetches transcript data from public YouTube videos using youtube-transcript-api.
+---
 
-✅ AI-Powered Summarization:
+## ✨ Features
 
-Generates clear, concise, and structured summaries in bullet-point format within a set word limit using LLM models such as Google Gemini, OpenAI GPT, or Cohere Command.
+* 📄 **Upload Research Documents** (PDF / TXT)
+* 🧠 **AI-Generated Summaries**
+* 💬 **Ask Questions About the Document**
+* ⚡ **Fast & Interactive UI using Streamlit**
+* 🌐 **Deployed on Streamlit Cloud**
 
-✅ Chunking Logic for Large Inputs:
+---
 
-Handles large transcripts by dividing them into manageable chunks, ensuring LLM API token limits are respected.
+## 🛠️ Tech Stack
 
-✅ Streamlit Web App Interface:
+* **Frontend & Backend:** Streamlit (Python)
+* **AI Model:** Generative AI (GPT / Gemini)
+* **Document Processing:** PyPDF / Text parsing libraries
+* **Deployment:** Streamlit Cloud
 
-Offers a clean, responsive, and interactive front-end powered by Streamlit.
+---
 
-✅ Environment Variable Configuration:
+## 🔄 Workflow
 
-Supports API key management using .env files for secure local development.
+1. User uploads a research document
+2. Text is extracted from the document
+3. Content is processed and sent to the Generative AI model
+4. AI generates:
 
-✅ Modular Backend Logic:
+   * Summary of the document
+   * Answers to user queries based on the document
 
-Cleanly structured Python functions for video ID extraction, transcript parsing, chunking, and AI summarization.
+---
 
-🛠️ Technology Stack
+## 📦 Installation & Setup
 
+```bash
+# Clone the repository
+git clone https://github.com/your-username/genai-research-assistant.git
 
-Component	Technology/Service
-Frontend	Streamlit
-Backend Logic	Python
-AI Model	Google Gemini API / OpenAI / Cohere
-Transcript Extraction	YouTube Transcript API
-Secrets Management	python-dotenv, Streamlit Cloud Secrets
+# Navigate to the project directory
+cd genai-research-assistant
 
+# Install dependencies
+pip install -r requirements.txt
 
-🔐 Environment Variables Configuration
+# Run the application
+streamlit run app.py
+```
 
-Variable Name	Required	Purpose
-GOOGLE_API_KEY	Optional	For Google Gemini model
-OPENAI_API_KEY	Optional	For OpenAI GPT models
-CO_API_KEY	Optional	For Cohere Command models
+---
 
-💻 How It Works
+## 🌐 Live Demo
 
-User Input:
+👉 [https://genai-research-assistant.streamlit.app/](https://genai-research-assistant.streamlit.app/)
 
-Paste a YouTube video link into the input box on the Streamlit app.
+---
 
-Transcript Fetching:
+## 📌 Use Cases
 
-Uses youtube-transcript-api to fetch available subtitles/transcripts.
+* Academic research paper analysis
+* Literature review assistance
+* Quick document summarization
+* AI-based learning support
 
-Chunking:
+---
 
-Breaks long transcripts into chunks of ~2000 characters to respect LLM token limits.
+## 🔮 Future Enhancements
 
-Summarization:
+* Multi-document comparison
+* Citation generation
+* Keyword extraction
+* Support for more file formats
 
-Sends each chunk to the configured AI API (Gemini/OpenAI/Cohere).
+---
 
-Display Summary:
+## 👤 Author
 
-Combines all responses into a complete, structured note document shown in the browser.
-
-✅ Best Practices
-
-
-Never hardcode API keys into app.py in public repositories. Use .env or cloud secret settings.
-
-Respect API quota limits for Google, OpenAI, or Cohere APIs. Free tiers have restrictions.
-
-Use smaller transcript chunks if running into token or quota issues.
-
-📌 Known Limitations
-
-
-Not all YouTube videos have transcripts available.
-
-LLM summarization quality may vary based on the model used.
-
-Large transcripts could take longer to process due to chunking.
-
-📁 Project Structure
-
-
-YouNote-AI/
-├── app.py                # Main Streamlit application file
-├── .env.example          # Template file for environment variables
-├── requirements.txt      # Python dependencies
-├── .gitignore            # Files/folders to ignore in Git
-├── README.md             # Project documentation
+Harsh Vardhan Chauhan
